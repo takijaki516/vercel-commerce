@@ -11,13 +11,6 @@ export type SEO = {
   description: string;
 };
 
-export type Image = {
-  url: string;
-  altText: string;
-  width: number;
-  height: number;
-};
-
 export type Menu = {
   title: string;
   path: string;
@@ -39,12 +32,6 @@ export type Page = {
   updateAt: string;
 };
 
-// NOTE: product
-export type Product = Omit<PlatformProduct, "variants" | "images"> & {
-  variants: ProductVariant[];
-  images: Image[];
-};
-
 export type ProductOption = {
   id: string;
   name: string;
@@ -62,24 +49,29 @@ export type ProductVariant = {
   price: Money;
 };
 
-export type PlatformProduct = {
+// NOTE: product
+export type Product = {
   id: string;
-  handle: string;
-  availableForSale: boolean;
+
   title: string;
   description: string;
-  descriptionHTML: string;
+  availableForSale: boolean;
+
   options: ProductOption[];
-  priceRange: {
-    maxVariantPrice: Money;
-    minVariantPrice: Money;
-  };
+  price: number;
+  currencyCode: string;
   variants: Connection<ProductVariant>;
   featuredImage: Image;
-  images: Connection<Image>;
-  seo: SEO;
+  images: Image[];
   tags: string[];
   updatedAt: string;
+};
+
+export type Image = {
+  url: string;
+  altText: string;
+  width: number;
+  height: number;
 };
 
 export type PlatformCart = {
@@ -94,12 +86,12 @@ export type PlatformCart = {
   totalQuantity: number;
 };
 
-export type PlatformCollection = {
-  handle: string;
+export type Collection = {
   title: string;
   description: string;
-  seo: SEO;
+
   updatedAt: string;
+  createdAt: string;
 };
 
 // NOTE: cart

@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { LogoIcon } from "./icons/logo";
+import { HomeLogoIcon } from "./icons/home-logo";
 
 export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
   return (
     <div>
-      <LogoIcon />
+      <HomeLogoIcon />
     </div>
   );
 }

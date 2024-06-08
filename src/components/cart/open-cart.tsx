@@ -8,11 +8,5 @@ export default function OpenCart({
   className?: string;
   quantity?: number;
 }) {
-  return (
-    <div>
-      <ShoppingCartLogoIcon />
-
-      {quantity ? <div>{quantity}</div> : null}
-    </div>
-  );
+  return <div>{quantity ? <div>{quantity}</div> : null}</div>;
 }

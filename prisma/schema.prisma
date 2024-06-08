@@ -69,4 +69,41 @@ model VerificationToken {
 // PRODUCT
 model Product {
   id String @id @default(cuid())
+
+  title            String  @unique
+  description      String
+  price            Int // NOTE: deal with decimal later
+  currencyCode     String
+  soldCount        Int
+  availableForSale Boolean
+
+  // TODO:
+  featuredImage String
+  images        String[]
+
+  // TODO: change to explicit relation
+  collections    Collection[]
+  product_images ProductImage[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Collection {
+  id String @id @default(cuid())
+
+  title       String @unique
+  description String
+
+  products Product[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model ProductImage {
+  id String @id @default(cuid())
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
