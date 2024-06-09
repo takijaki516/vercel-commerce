@@ -29,34 +29,57 @@ export function LoginForm() {
   }, [result, router]);
 
   return (
-    <form action={dispatch} className="flex flex-col">
-      <div>
-        <h1 className="text-2xl font-bold">LOGIN</h1>
-        <div>
-          <div>
-            <Label htmlFor="email" />
+    <form
+      action={dispatch}
+      className="flex flex-col items-center gap-4 space-y-3"
+    >
+      <div className="w-full flex-1 rounded-lg border bg-neutral-200 px-6 pb-4 pt-8 shadow-md dark:bg-black dark:text-neutral-300 md:w-96">
+        <h1 className="mb-4 text-2xl font-bold">LOGIN</h1>
+        <div className="w-full">
+          <div className="flex flex-col space-y-3">
+            <Label
+              htmlFor="email"
+              className="text-xs font-medium text-neutral-400"
+            >
+              Email
+            </Label>
             <Input
               id="email"
               type="email"
               name="email"
               placeholder="Enter Email"
+              // REVIEW:
+              required
+              className="w=f px-2 py-[9px] outline-none placeholder:text-neutral-400"
             />
           </div>
-          <div>
-            <Label htmlFor="password" />
+          <div className="mt-4 flex flex-col space-y-3">
+            <Label
+              htmlFor="password"
+              className="text-xs font-medium text-neutral-400"
+            >
+              Password
+            </Label>
             <Input
               id="password"
               type="password"
               name="password"
               placeholder="Enter Password"
+              // REVIEW:
+              required
+              minLength={6}
+              className="px-2 py-[9px] outline-none placeholder:text-neutral-400"
             />
           </div>
         </div>
         <LoginButton />
       </div>
 
-      <Link href="/signup">
-        No account yet? <span>Sign up</span>
+      <Link
+        href="/signup"
+        className="flex flex-row gap-1 text-sm text-neutral-400"
+      >
+        No account yet? <span className="font-semibold underline">Sign up</span>
       </Link>
     </form>
   );
@@ -66,7 +89,10 @@ function LoginButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button aria-disabled={pending}>
+    <Button
+      className="my-4 flex h-10 w-full flex-row items-center justify-center"
+      aria-disabled={pending}
+    >
       {pending ? <ReloadIcon className="h-4 w-4 animate-spin" /> : "Login"}
     </Button>
   );
