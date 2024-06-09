@@ -10,22 +10,22 @@ export default async function AdminLayout({
   const session = await auth();
 
   if (!session) {
-    return (
-      <div>
-        <Link href="/'">GO TO HOME</Link>
-        <div className="text-2xl">Not logged in</div>
-      </div>
-    );
+    return redirect("/");
   }
 
   if (!session.admin) {
     return (
-      <div>
-        <Link href="/'">GO TO HOME</Link>
-        <div className="text-2xl">Not an admin</div>
+      <div className="flex flex-col items-center space-y-4 pt-10">
+        <div className="text-4xl text-neutral-400">You are not an admin</div>
+        <Link
+          className="text-2xl text-neutral-400 underline underline-offset-8 hover:text-neutral-300"
+          href="/'"
+        >
+          GO TO HOME
+        </Link>
       </div>
     );
   }
 
-  return <div>{children}</div>;
+  return <div className="min-h-screen">{children}</div>;
 }

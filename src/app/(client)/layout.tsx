@@ -3,5 +3,5 @@ export default async function ClientLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div>{children}</div>;
+  return <>{children}</>;
 }

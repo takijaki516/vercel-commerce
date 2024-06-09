@@ -71,9 +71,9 @@ export const nextConfig = {
     },
     async session({ session, token }) {
       if (token) {
-        const { id } = token as { id: string };
+        const { id, admin } = token as { id: string; admin: boolean };
         const { user } = session;
-        session = { ...session, user: { ...user, id } };
+        session = { ...session, admin, user: { ...user, id } };
       }
 
       return session;
