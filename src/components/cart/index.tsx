@@ -1,15 +1,23 @@
-import { cookies } from "next/headers";
+import { auth } from "@/auth";
+import { prismaDB } from "@/lib/prisma-db";
+import { CartComponent } from "./cart-component";
 
-import { ShoppingCartLogoIcon } from "../icons/shopping-cart-logo";
-import { Sheet, SheetHeader, SheetTrigger } from "../ui/sheet";
-import { getCart } from "@/lib";
-import { CartComponent } from "./cart";
-
+// TODO: add cookie based cart
 export async function Cart() {
-  const cartId = cookies().get("cartId")?.value;
-  let cart;
+  const session = await auth();
+  if (!session || !session.user) return null;
 
-  if (cartId) {
-    cart = await getCart(cartId);
-  }
+  const cart = await prismaDB.cart.findUnique({
+    where: {
+      userId: session.user?.id,
+    },
+    include: {
+      cartItems: true,
+    },
+  });
+
+  if (!cart) return null;
+  const cartItems = cart?.cartItems;
+
+  return <CartComponent cartItems={cartItems} />;
 }

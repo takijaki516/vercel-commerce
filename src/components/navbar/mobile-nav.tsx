@@ -29,9 +29,7 @@ export function MobileMenu({ menus }: { menus: string[] }) {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button asChild>
-          <HamburgerMenuIcon />
-        </Button>
+        <HamburgerMenuIcon className="h-4 w-4" />
       </SheetTrigger>
       <SheetContent className="w-full">
         <SheetClose asChild>

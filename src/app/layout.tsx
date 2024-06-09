@@ -21,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen")}>
+      <body
+        className={cn(
+          "bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white",
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
