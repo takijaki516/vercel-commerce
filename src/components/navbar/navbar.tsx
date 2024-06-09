@@ -14,7 +14,6 @@ const menus = ["all", "shirt", "pants", "shoes"];
 
 export async function Navbar() {
   const session = await auth();
-  console.log("🚀 ~ file: navbar.tsx:16 ~ Navbar ~ session:", session);
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">

@@ -1,11 +1,10 @@
 "use server";
 
 import { z } from "zod";
-import { CustomPrismaAdapter, signIn } from "@/auth";
-import { AuthError } from "next-auth";
 
-import { ResultCode, getStringFromBuffer } from "@/lib/utils";
+import { signIn } from "@/auth";
 import { prismaDB } from "@/lib/prisma-db";
+import { ResultCode, getStringFromBuffer } from "@/lib/utils";
 
 interface Result {
   type: string;
@@ -54,31 +53,25 @@ export async function signup(
     const hashedPassword = getStringFromBuffer(hashedPasswordBuffer);
 
     // TODO: add error handling
-    if (CustomPrismaAdapter.createUser) {
-      user = await CustomPrismaAdapter.createUser({
-        emailVerified: null,
-        email,
-        id: "", // NOTE: doesn't matter anyway
+
+    user = await prismaDB.user.create({
+      data: {  email,
         salt,
         hashedPassword,
-      });
+      },
+    });
+      
 
-      await signIn("credentials", {
-        email: user.email,
-        password: user.hashedPassword,
-        redirect: false,
-      });
+    await signIn("credentials", {
+      email: parsedCredentials.data.email,
+      password: parsedCredentials.data.password,
+      redirect: false,
+    });
 
-      return {
-        type: "success",
-        resultCode: ResultCode.UserCreated,
-      };
-    } else {
-      return {
-        type: "error",
-        resultCode: ResultCode.UnknownError,
-      };
-    }
+    return {
+      type: "success",
+      resultCode: ResultCode.UserCreated,
+    };
   } else {
     return {
       type: "error",
