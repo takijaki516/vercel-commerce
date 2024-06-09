@@ -50,7 +50,7 @@ export function LoginForm() {
               placeholder="Enter Email"
               // REVIEW:
               required
-              className="w=f px-2 py-[9px] outline-none placeholder:text-neutral-400"
+              className="px-2 py-[9px] outline-none placeholder:text-neutral-400"
             />
           </div>
           <div className="mt-4 flex flex-col space-y-3">

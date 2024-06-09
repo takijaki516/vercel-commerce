@@ -10,7 +10,7 @@ export default async function SignupPage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col p-4">
       <SignUpForm />
     </div>
   );
