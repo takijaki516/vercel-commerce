@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { Grid } from "@/components/grid";
 import { defaultSort, sorting } from "@/lib/constants";
-import { getCollection, getCollectionProducts } from "@/app/actions";
+import { getCollection, getCollectionProducts } from "@/app/(client)/actions";
 import ProductGridItems from "@/components/product-grid-items";
 
 export async function generateMetadata({

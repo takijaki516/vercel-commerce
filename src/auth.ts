@@ -64,7 +64,7 @@ export const nextConfig = {
     // },
     async jwt({ token, user }) {
       if (user) {
-        token = { ...token, id: user.id };
+        token = { ...token, id: user.id, admin: user.admin };
       }
 
       return token;

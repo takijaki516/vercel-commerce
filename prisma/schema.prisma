@@ -24,8 +24,9 @@ model User {
   sessions      Session[]
 
   // NOTE: custom adapter field (for credientials provider)
-  salt String?
+  salt           String?
   hashedPassword String?
+  admin          Boolean @default(false)
 
   // NOTE: application specific
   cart Cart?
