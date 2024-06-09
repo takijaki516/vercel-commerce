@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import { Button } from "../ui/button";
-import Search, { SearchSkeleton } from "../search";
+import Search, { SearchSkeleton } from "./search";
 
 export function MobileMenu({ menus }: { menus: string[] }) {
   const pathname = usePathname();

@@ -2,10 +2,9 @@ import * as React from "react";
 import Link from "next/link";
 
 import { HomeLogoIcon } from "../icons/home-logo";
-import { Cart } from "../cart";
 import OpenCart from "../cart/open-cart";
-import Search, { SearchSkeleton } from "../search";
 import { MobileMenu } from "./mobile-nav";
+import Search, { SearchSkeleton } from "./search";
 
 const menus = ["all", "shirt", "pants", "shoes"];
 
