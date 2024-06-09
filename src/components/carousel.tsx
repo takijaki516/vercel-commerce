@@ -1,10 +1,13 @@
 import Link from "next/link";
 
 import { GridTileImage } from "./grid/tile";
+import { Product } from "@prisma/client";
 
 // TODO: make it infinite scroll
-export async function Carousel(products: any) {
-  if (!products) return null;
+export async function Carousel({ product }: { product: Product[] }) {
+  if (product.length === 0) {
+    return null;
+  }
 
   return (
     <div className="w-full overflow-x-auto pb-6 pt-1">

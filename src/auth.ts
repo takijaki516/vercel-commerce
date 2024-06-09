@@ -8,6 +8,7 @@ import type { Adapter } from "next-auth/adapters";
 
 import { prismaDB } from "./lib/prisma-db";
 import { getUserByEmail } from "./lib";
+import { getStringFromBuffer } from "./lib/utils";
 
 // TODO: add error handling
 // NOTE: custom adapter to store salt
@@ -67,11 +68,24 @@ export const nextConfig = {
           const { email, password } = parsedCredentials.data;
           const user = await getUserByEmail(email);
           if (!user) return null;
+          if (!user.salt) return null; // NOTE: this user is not created by credentials provider
 
           // REVIEW:
           const encoder = new TextEncoder();
           const saltedPassword = encoder.encode(password);
+          const hashedPasswordBuffer = await crypto.subtle.digest(
+            "SHA-256",
+            saltedPassword,
+          );
+          const hashedPassword = getStringFromBuffer(hashedPasswordBuffer);
+          if (hashedPassword === user.hashedPassword) {
+            return user;
+          } else {
+            return null;
+          }
         }
+
+        return null;
       },
     }),
   ],
@@ -90,8 +104,15 @@ export const nextConfig = {
 
       return true;
     },
+    jwt({ token, user }) {
+      console.log("🚀 ~ file: auth.ts:108 ~ jwt ~ user:", user);
+      console.log("🚀 ~ file: auth.ts:108 ~ jwt ~ token:", token);
+      return token;
+    },
     // TODO: check
     session({ session, user }) {
+      console.log("🚀 ~ file: auth.ts:115 ~ session ~ user:", user);
+      console.log("🚀 ~ file: auth.ts:115 ~ session ~ session:", session);
       return session;
     },
   },

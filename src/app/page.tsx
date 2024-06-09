@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { getProducts } from "./actions";
 import { Carousel } from "@/components/carousel";
 import { Footer } from "@/components/footer";
@@ -11,7 +9,7 @@ export default async function Home() {
   return (
     <>
       <ThreeItemGrid products={homePageItems.slice(0, 3)} />
-      <Carousel products={homePageItems} />
+      <Carousel product={homePageItems} />
       <Footer />
     </>
   );
