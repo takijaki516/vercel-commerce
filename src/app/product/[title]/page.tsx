@@ -8,6 +8,7 @@ import { GridTileImage } from "@/components/grid/tile";
 import { getProductByTitle } from "@/app/actions";
 import { Gallery } from "@/components/product/gallery";
 import { Image } from "@/lib/types";
+import { ProductDescription } from "@/components/product/product-description";
 
 export async function generateMetadata({
   params,

@@ -23,6 +23,13 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  // NOTE: custom adapter field (for credientials provider)
+  salt String?
+  hashedPassword String?
+
+  // NOTE: application specific
+  cart Cart?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -67,28 +74,6 @@ model VerificationToken {
 }
 
 // PRODUCT
-model Product {
-  id String @id @default(cuid())
-
-  title            String  @unique
-  description      String
-  price            Int // NOTE: deal with decimal later
-  currencyCode     String
-  soldCount        Int
-  availableForSale Boolean
-
-  // TODO:
-  featuredImage String
-  images        String[]
-
-  // TODO: change to explicit relation
-  collections    Collection[]
-  product_images ProductImage[]
-
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
-}
-
 model Collection {
   id String @id @default(cuid())
 
@@ -101,9 +86,86 @@ model Collection {
   createdAt DateTime @default(now())
 }
 
-model ProductImage {
+model Product {
   id String @id @default(cuid())
+
+  title            String  @unique
+  description      String
+  price            Int // NOTE: deal with decimal later
+  currencyCode     String
+  soldCount        Int
+  availableForSale Boolean
+
+  // TODO:
+  featuredImage  String
+  product_images ProductImage[]
+
+  // TODO: change to explicit relation
+  collections   Collection[]
+  size_variants ProductVariant[]
+
+  // REVIEW:
+  cartItems CartItem[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+// TODO: betterr DB?
+model ProductVariant {
+  id String @id @default(cuid())
+
+  variant        String
+  availableCount Int
+
+  cartItems CartItem[]
 
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model ProductImage {
+  id String @id @default(cuid())
+
+  url     String
+  altText String
+  width   Int
+  height  Int
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id String @id @default(cuid())
+
+  cartItems CartItem[]
+
+  // NOTE: one-to-one relation 
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model CartItem {
+  id String @id @default(cuid())
+
+  quantity Int
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  productVariantId String
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+
+  cartId String
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }

@@ -38,17 +38,6 @@ export type ProductOption = {
   values: string[];
 };
 
-export type ProductVariant = {
-  id: string;
-  title: string;
-  availableForSale: boolean;
-  selectedOptions: {
-    name: string;
-    value: string;
-  }[];
-  price: Money;
-};
-
 // NOTE: product
 export type Product = {
   id: string;
@@ -60,7 +49,6 @@ export type Product = {
   options: ProductOption[];
   price: number;
   currencyCode: string;
-  variants: Connection<ProductVariant>;
   featuredImage: Image;
   images: Image[];
   tags: string[];

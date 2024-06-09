@@ -1,4 +1,6 @@
-export function ShoppingCartLogoIcon() {
+import { cn } from "@/lib/utils";
+
+export function ShoppingCartLogoIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
       fill="#000000"
@@ -8,6 +10,8 @@ export function ShoppingCartLogoIcon() {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 902.86 902.86"
       xmlSpace="preserve"
+      // REVIEW:
+      className={cn("h-4 w-4", props.className)}
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g

@@ -2,22 +2,25 @@
 
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
+
 import { TAGS } from "@/lib/constants";
-import { getCart } from "@/lib";
+import { createCart, getCart } from "@/lib";
 
 export async function addItem(
   prevState: any,
-  selectedVariantId: string | undefind,
+  selectedVariantId: string | undefined,
 ) {
   let cartId = cookies().get("cartId")?.value;
   let cart;
+  // REVIEW: how to get userId?
+  let userId = "test user id";
 
   if (cartId) {
     cart = await getCart(cartId);
   }
 
   if (!cartId || !cart) {
-    cart = await createCart();
+    cart = await createCart(userId);
     cartId = cart.id;
     cookies().set("cartId", cartId);
   }

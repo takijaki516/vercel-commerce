@@ -1,6 +1,7 @@
 import { Product } from "@/lib/types";
 import * as React from "react";
 import { Price } from "../price";
+import { AddToCart } from "../cart/add-to-cart";
 
 export function ProductDescription({ product }: { product: Product }) {
   return (

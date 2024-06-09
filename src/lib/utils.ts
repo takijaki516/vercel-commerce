@@ -14,3 +14,36 @@ export function createUrl(
   const queryString = `${paramsString.length ? "?" : ""}${paramsString}`;
   return `${pathname}${queryString}`;
 }
+
+// NOTE: for server action result;
+export enum ResultCode {
+  InvalidCredentials = "INVALID_CREDENTIALS",
+  InvalidSubmission = "INVALID_SUBMISSION",
+  UserAlreadyExists = "USER_ALREADY_EXISTS",
+  UnknownError = "UNKNOWN_ERROR",
+  UserCreated = "USER_CREATED",
+  UserLoggedIn = "USER_LOGGED_IN",
+}
+
+export const getMessageFromCode = (resultCode: string) => {
+  switch (resultCode) {
+    case ResultCode.InvalidCredentials:
+      return "Invalid Credentials";
+    case ResultCode.InvalidSubmission:
+      return "Invalid Submission";
+    case ResultCode.UserAlreadyExists:
+      return "User Already Exists";
+    case ResultCode.UnknownError:
+      return "Something went wrong. Unknown Error";
+    case ResultCode.UserCreated:
+      return "User Created";
+    case ResultCode.UserLoggedIn:
+      return "User Logged In";
+  }
+};
+
+// REVIEW:
+export const getStringFromBuffer = (buffer: ArrayBuffer) =>
+  Array.from(new Uint8Array(buffer))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
