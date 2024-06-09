@@ -19,9 +19,12 @@ function FooterMenuItem({ item }: { item: Menu }) {
     <li>
       <Link
         href={item.path}
-        className={cn("block p-2", {
-          "text-black dark:text-neutral-300": active,
-        })}
+        className={cn(
+          "block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm",
+          {
+            "text-black dark:text-neutral-300": active,
+          },
+        )}
       >
         {item.title}
       </Link>
