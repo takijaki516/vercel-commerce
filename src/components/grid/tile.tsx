@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import { ProductLabel } from "../product-label";
 import { cn } from "@/lib/utils";
 
