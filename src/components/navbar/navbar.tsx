@@ -8,13 +8,12 @@ import { MobileMenu } from "./mobile-nav";
 import Search, { SearchSkeleton } from "./search";
 import { UserInfo } from "./user-info";
 import { Cart } from "../cart";
-import { EnterIcon } from "@radix-ui/react-icons";
+
 
 const menus = ["all", "shirt", "pants", "shoes"];
 
 export async function Navbar() {
   const session = await auth();
-  console.log("🚀 ~ file: navbar.tsx:16 ~ Navbar ~ session:", session);
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -57,7 +56,17 @@ export async function Navbar() {
 
         <div className="flex justify-end md:w-1/3">
           {session ? (
-            <UserInfo isAdmin={session.admin} />
+            <>
+              <UserInfo isAdmin={session.admin} />
+              {session.admin && (
+                <Link
+                  href="/admin"
+                  className="ml-2 flex items-center justify-end text-neutral-300 underline-offset-4 hover:text-neutral-200 hover:underline"
+                >
+                  <span>ADMIN</span>
+                </Link>
+              )}
+            </>
           ) : (
             <Link
               href="/login"
@@ -66,6 +75,7 @@ export async function Navbar() {
               <span>Login</span>
             </Link>
           )}
+
           <React.Suspense fallback={<OpenCart />}>
             <Cart />
           </React.Suspense>

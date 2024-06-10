@@ -22,12 +22,6 @@ export function UserInfo({ isAdmin }: UserInfoProps) {
         <Link href="/user-page">
           <ShoppingCartLogoIcon className="h-4 w-4 bg-white fill-pink-500" />
         </Link>
-
-        {isAdmin && (
-          <Link href="/admin">
-            <EnterIcon />
-          </Link>
-        )}
       </DialogContent>
     </Dialog>
   );
