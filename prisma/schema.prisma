@@ -93,8 +93,7 @@ model Product {
   title            String  @unique
   description      String
   price            Int // NOTE: deal with decimal later
-  currencyCode     String
-  soldCount        Int
+  soldCount        Int     @default(0)
   availableForSale Boolean
 
   // TODO:
@@ -112,11 +111,10 @@ model Product {
   createdAt DateTime @default(now())
 }
 
-// TODO: betterr DB?
 model ProductVariant {
   id String @id @default(cuid())
 
-  variant        String
+  size           String // TODO: change to enum
   availableCount Int
 
   cartItems CartItem[]

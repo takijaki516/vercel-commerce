@@ -23,15 +23,17 @@ function SidebarMenuItem({
 }: ArrayElement<typeof sidebarMenus>) {
   const pathname = usePathname();
 
-  const isActive = pathname.slice(6) === link;
-  console.log("🚀 ~ file: admin-sidebar-items.tsx:28 ~ isActive:", isActive);
+  const isActive = pathname.slice(7) === link;
 
   return (
     <li
-      className={cn(isActive && "bg-neutral-800 text-white", "rounded-md p-2")}
+      className={cn(
+        isActive && "bg-neutral-800 text-neutral-300",
+        "rounded-md p-2",
+      )}
     >
       <Link href={`/admin/${link}`} className="flex items-center space-x-2">
-        <Icon  className="h-5 w-5"/>
+        <Icon className="h-5 w-5" />
         <span>{title}</span>
       </Link>
     </li>
@@ -42,10 +44,10 @@ export function AdminSidebarItems() {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center px-6 py-8">
-        <h3 className="text-2xl font-semibold">DASHBOARD</h3>
+        <h3 className="text-2xl font-semibold text-neutral-300">DASHBOARD</h3>
       </div>
 
-      <ul className="flex flex-1 flex-col space-y-4 overflow-hidden px-4 text-neutral-300">
+      <ul className="flex flex-1 flex-col space-y-4 overflow-hidden px-4 text-neutral-400">
         {sidebarMenus.map((item, idx) => (
           <SidebarMenuItem
             key={idx}
