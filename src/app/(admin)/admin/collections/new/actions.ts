@@ -4,10 +4,12 @@ import { z } from "zod";
 
 import { prismaDB } from "@/lib/prisma-db";
 import { ResultCode } from "@/lib/utils";
+import { Collection } from "@prisma/client";
 
 interface Result {
   type: string;
   resultCode: ResultCode;
+  data?: Collection;
 }
 
 export async function createCollection(
@@ -51,5 +53,6 @@ export async function createCollection(
   return {
     type: "success",
     resultCode: ResultCode.CollectionCreated,
+    data: collection,
   };
 }
