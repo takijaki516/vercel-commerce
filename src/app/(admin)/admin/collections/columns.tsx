@@ -8,7 +8,6 @@ export const columns: ColumnDef<Collection>[] = [
     accessorKey: "title",
     header: () => <div>title</div>,
     cell: ({ row }) => {
-      console.log("🚀 ~ file: columns.tsx:14 ~ row.original:", row.original);
       return <div>{row.getValue("title")}</div>;
     },
   },

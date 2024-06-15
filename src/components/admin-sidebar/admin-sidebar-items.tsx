@@ -2,15 +2,21 @@
 
 import * as React from "react";
 
-import { DashboardIcon, ArchiveIcon, RocketIcon } from "@radix-ui/react-icons";
+import {
+  DashboardIcon,
+  ArchiveIcon,
+  RocketIcon,
+  TableIcon,
+} from "@radix-ui/react-icons";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
 export const sidebarMenus = [
-  { link: "", title: "dashboard", Icon: DashboardIcon },
-  { link: "product", title: "product", Icon: ArchiveIcon },
+  { link: "dashboard", title: "dashboard", Icon: DashboardIcon },
+  { link: "products", title: "products", Icon: ArchiveIcon },
+  { link: "collections", title: "collections", Icon: TableIcon },
   { link: "orders", title: "orders", Icon: RocketIcon },
 ];
 
@@ -22,8 +28,9 @@ function SidebarMenuItem({
   link,
 }: ArrayElement<typeof sidebarMenus>) {
   const pathname = usePathname();
-
-  const isActive = pathname.slice(7) === link;
+  const pathArr = pathname.split("/");
+  const activePath = pathArr[2];
+  const isActive = activePath === link;
 
   return (
     <li

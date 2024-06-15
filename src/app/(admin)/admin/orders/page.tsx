@@ -1,3 +1,3 @@
 export default async function OrdersPage() {
-  return <div>Orders Page</div>;
+  return <div className="w-full px-16">Orders Page</div>;
 }
