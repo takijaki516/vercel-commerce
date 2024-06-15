@@ -23,6 +23,9 @@ export enum ResultCode {
   UnknownError = "UNKNOWN_ERROR",
   UserCreated = "USER_CREATED",
   UserLoggedIn = "USER_LOGGED_IN",
+  CollectionCreated = "COLLECTION_CREATED",
+  CollectionAlreadyExists = "COLLECTION_ALREADY_EXISTS",
+  CollectionFormInvalid = "COLLECTION_FORM_INVALID",
 }
 
 export const getMessageFromCode = (resultCode: string) => {
@@ -39,6 +42,12 @@ export const getMessageFromCode = (resultCode: string) => {
       return "User Created";
     case ResultCode.UserLoggedIn:
       return "User Logged In";
+    case ResultCode.CollectionCreated:
+      return "Collection Created";
+    case ResultCode.CollectionAlreadyExists:
+      return "Collection Already Exists";
+    case ResultCode.CollectionFormInvalid:
+      return "Collection Form Invalid";
   }
 };
 

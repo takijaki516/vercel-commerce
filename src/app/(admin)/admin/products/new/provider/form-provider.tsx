@@ -4,7 +4,6 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useFormState } from "react-dom";
 
 import { Collection } from "@prisma/client";
 import { Form } from "@/components/ui/form";
@@ -22,8 +21,8 @@ const createProductFormSchema = z.object({
   md: z.enum(["true", "false"]),
   lg: z.enum(["true", "false"]),
   xl: z.enum(["true", "false"]),
-  mainImage: z.instanceof(File).optional(),
-  images: z.instanceof(FileList).optional(),
+  mainImage: z.array(z.instanceof(File)).length(1).nullable(),
+  images: z.array(z.instanceof(File)).length(1).nullable(),
 });
 
 export type CreateProductFormValues = z.infer<typeof createProductFormSchema>;
@@ -39,6 +38,8 @@ const defaultValues: CreateProductFormValues = {
   md: "false",
   lg: "false",
   xl: "false",
+  mainImage: null,
+  images: null,
 };
 
 interface ProductFormContextTypes {

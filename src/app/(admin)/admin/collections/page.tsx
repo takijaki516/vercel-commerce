@@ -1,17 +1,13 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-
 import { getAllCollections } from "../products/new/actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function CollectionsPage() {
   const collections = await getAllCollections();
-  console.log(
-    "🚀 ~ file: page.tsx:11 ~ CollectionsPage ~ collections:",
-    collections,
-  );
 
   return (
     <div className="w-full px-16">

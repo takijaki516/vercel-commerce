@@ -1,7 +1,6 @@
 "use client";
 
 import { Cross1Icon } from "@radix-ui/react-icons";
-import clsx from "clsx";
 import { useFormState, useFormStatus } from "react-dom";
 
 import { CartItem } from "@/lib/types";
