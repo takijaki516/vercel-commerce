@@ -114,8 +114,9 @@ model Product {
 model ProductVariant {
   id String @id @default(cuid())
 
-  size           String // TODO: change to enum
-  availableCount Int
+  size      String // TODO: change to enum
+  count     Int     @default(0)
+  available Boolean @default(false)
 
   cartItems CartItem[]
 
