@@ -96,8 +96,7 @@ model Product {
   soldCount        Int     @default(0)
   availableForSale Boolean
 
-  // TODO:
-  featuredImage  String
+  mainImage      String
   product_images ProductImage[]
 
   // TODO: change to explicit relation
@@ -128,15 +127,14 @@ model ProductVariant {
 }
 
 model ProductImage {
-  id String @id @default(cuid())
-
-  url     String
-  altText String
-  width   Int
-  height  Int
+  id  String @id @default(cuid())
+  url String
 
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Cart {
