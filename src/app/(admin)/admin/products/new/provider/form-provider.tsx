@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Collection } from "@prisma/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 import { Form } from "@/components/ui/form";
 import { createProduct, getSignedURL } from "../actions";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export const variantsOptions = ["xs", "sm", "md", "lg", "xl"] as const;
 
