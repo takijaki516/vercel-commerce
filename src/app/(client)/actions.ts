@@ -2,25 +2,6 @@
 
 import { prismaDB } from "@/lib/prisma-db";
 
-export async function getProducts({
-  query,
-  reverse,
-  sortKey,
-}: {
-  query?: string;
-  reverse?: boolean;
-  sortKey?: string;
-}) {
-  const res = await prismaDB.product.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 3,
-  });
-
-  return res;
-}
-
 export async function getProductByTitle(title: string) {
   const res = await prismaDB.product.findUnique({
     where: {

@@ -1,9 +1,9 @@
 import * as React from "react";
+import Link from "next/link";
 
 import { AdminMobileSidebar } from "../admin-sidebar/admin-mobile-sidebar";
-import { ModeToggle } from "../theme-toggle";
-import { AdminSidebarItems } from "../admin-sidebar/admin-sidebar-items";
 import { AdminSidebarToggle } from "../admin-sidebar/admin-sidebar-toggle";
+import { ModeToggle } from "../theme-toggle";
 
 export async function AdminNavbar() {
   return (
@@ -13,6 +13,9 @@ export async function AdminNavbar() {
           <AdminMobileSidebar />
           <AdminSidebarToggle />
         </React.Suspense>
+        <Link href="/" className="ml-2 underline-offset-4 hover:underline">
+          Home
+        </Link>
       </div>
 
       <div className="flex items-center">

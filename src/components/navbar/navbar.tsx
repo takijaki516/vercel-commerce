@@ -9,7 +9,6 @@ import Search, { SearchSkeleton } from "./search";
 import { UserInfo } from "./user-info";
 import { Cart } from "../cart";
 
-
 const menus = ["all", "shirt", "pants", "shoes"];
 
 export async function Navbar() {
@@ -60,7 +59,7 @@ export async function Navbar() {
               <UserInfo isAdmin={session.admin} />
               {session.admin && (
                 <Link
-                  href="/admin"
+                  href="/admin/dashboard"
                   className="ml-2 flex items-center justify-end text-neutral-300 underline-offset-4 hover:text-neutral-200 hover:underline"
                 >
                   <span>ADMIN</span>

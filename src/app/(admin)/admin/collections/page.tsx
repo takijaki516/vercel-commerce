@@ -1,25 +1,29 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { prismaDB } from "@/lib/prisma-db";
 
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import { getAllCollections } from "../actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function CollectionsPage() {
-  const collections = await getAllCollections();
+  const collections = await prismaDB.collection.findMany({
+    include: {
+      products: true,
+    },
+  });
 
   return (
-    <div className="w-full px-16">
+    <div className="w-full px-16 text-neutral-300">
       <Link
         href="/admin/collections/new"
-        className="text-neutral-30 flex items-center pb-10"
+        className="flex items-center underline-offset-4 hover:underline"
       >
         <PlusIcon className="mr-2 h-6 w-6" />
         <span>add new collections</span>
       </Link>
 
-      <div className="">
+      <div className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Collections</CardTitle>

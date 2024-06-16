@@ -7,6 +7,8 @@ export function GridTileImage({
   isInteractive,
   active,
   label,
+  alt,
+  src,
   ...props
 }: {
   isInteractive?: boolean;
@@ -14,27 +16,40 @@ export function GridTileImage({
   label?: {
     title: string;
     amount: number;
-    currencyCode: string;
     position?: "bottom" | "center";
   };
 } & React.ComponentProps<typeof Image>) {
   return (
     <div
-      className={cn("f-ull group flex w-full", {
-        relative: label,
-        "border-2 border-blue-600": active,
-        "border-neutral-200 dark:border-neutral-800": !active,
-      })}
+      className={cn(
+        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 hover:ring-purple-600 dark:bg-black",
+        {
+          relative: label,
+          "border-2 border-blue-600 hover:ring-purple-600": active,
+          "border-neutral-200 hover:ring-purple-600 dark:border-neutral-800":
+            !active,
+        },
+      )}
     >
-      {props.src ? (
-        <Image className={cn("relative h-full w-full")} {...props} />
+      {src ? (
+        <Image
+          className={cn(
+            "relative h-full w-full object-contain p-2 hover:border-blue-600",
+            {
+              "transition duration-300 ease-in-out group-hover:scale-105":
+                isInteractive,
+            },
+          )}
+          src={src}
+          alt={alt}
+          {...props}
+        />
       ) : null}
 
       {label ? (
         <ProductLabel
           title={label.title}
           amount={label.amount}
-          currencyCode={label.currencyCode}
           position={label.position}
         />
       ) : null}

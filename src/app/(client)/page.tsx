@@ -1,15 +1,20 @@
-import { getProducts } from "./actions";
+import { prismaDB } from "@/lib/prisma-db";
+
 import { Carousel } from "@/components/carousel";
 import { Footer } from "@/components/footer";
 import { ThreeItemGrid } from "@/components/grid/three-items";
 
 export default async function Home() {
-  const homePageItems = await getProducts({});
+  const homePageProducts = await prismaDB.product.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return (
     <>
-      <ThreeItemGrid products={homePageItems.slice(0, 3)} />
-      <Carousel product={homePageItems} />
+      <ThreeItemGrid products={homePageProducts.slice(0, 3)} />
+      <Carousel products={homePageProducts} />
       <Footer />
     </>
   );
