@@ -10,7 +10,7 @@ export async function Carousel({ products }: { products: Product[] }) {
   }
 
   return (
-    <div className="w-full overflow-x-auto pb-6 pt-1">
+    <div className="no-scrollbar w-full overflow-x-auto pb-6 pt-1">
       <ul className="animate-carousel flex gap-4">
         {products.map((product: Product, index: number) => (
           <li
