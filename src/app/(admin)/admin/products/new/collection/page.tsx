@@ -94,7 +94,6 @@ function AddNewCollectionDialog({
   const [result, dispatch] = useFormState(createCollection, undefined);
   const { pending } = useFormStatus();
   const router = useRouter();
-
   const [isDialogOpen, setIsDialogOpen] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -118,7 +117,11 @@ function AddNewCollectionDialog({
         </Button>
       </DialogTrigger>
       <DialogContent onInteractOutside={(e) => e.preventDefault()}>
-        <form className="flex flex-col space-y-4" action={dispatch}>
+        <form
+          className="flex flex-col space-y-4"
+          action={dispatch}
+          onSubmit={(e) => e.stopPropagation()}
+        >
           <div>
             <Label htmlFor="title">title</Label>
             <Input
@@ -142,6 +145,7 @@ function AddNewCollectionDialog({
           <Button
             className="col-start-2 col-end-4 w-full"
             aria-disabled={pending}
+            type="submit"
           >
             {pending ? (
               <ReloadIcon />

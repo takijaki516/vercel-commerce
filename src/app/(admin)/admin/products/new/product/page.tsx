@@ -106,7 +106,7 @@ export default function AdminNewProductPage() {
         }}
       />
 
-      <div className="flex w-full space-x-8">
+      <div className="flex w-full flex-col space-y-2">
         {variantsOptions.map((variant, idx) => (
           <FormField
             key={idx}
@@ -114,31 +114,10 @@ export default function AdminNewProductPage() {
             name={variant}
             render={({ field }) => {
               return (
-                <FormItem>
-                  <FormLabel>{variant}</FormLabel>
+                <FormItem className="flex items-center space-x-2 space-y-0 p-0">
+                  <FormLabel className="w-6">{variant}</FormLabel>
                   <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormItem className="flex items-center space-x-1 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="true" />
-                        </FormControl>
-                        <FormLabel>
-                          <CircleIcon />
-                        </FormLabel>
-                      </FormItem>
-
-                      <FormItem className="flex items-center space-x-1 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="false" />
-                        </FormControl>
-                        <FormLabel>
-                          <Cross1Icon />
-                        </FormLabel>
-                      </FormItem>
-                    </RadioGroup>
+                    <Input type="number" placeholder="quantity" {...field} />
                   </FormControl>
                 </FormItem>
               );

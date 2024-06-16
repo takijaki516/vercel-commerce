@@ -4,9 +4,12 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import { Collection } from "@prisma/client";
+
 import { Form } from "@/components/ui/form";
+import { createProduct, getSignedURL } from "../actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const variantsOptions = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -16,13 +19,13 @@ const createProductFormSchema = z.object({
   description: z.string(),
   price: z.string(),
   availableForSale: z.enum(["true", "false"]), // REVIEW:
-  xs: z.enum(["true", "false"]),
-  sm: z.enum(["true", "false"]),
-  md: z.enum(["true", "false"]),
-  lg: z.enum(["true", "false"]),
-  xl: z.enum(["true", "false"]),
+  xs: z.string(),
+  sm: z.string(),
+  md: z.string(),
+  lg: z.string(),
+  xl: z.string(),
   mainImage: z.array(z.instanceof(File)).length(1).nullable(),
-  images: z.array(z.instanceof(File)).length(1).nullable(),
+  images: z.array(z.instanceof(File)).length(3).nullable(),
 });
 
 export type CreateProductFormValues = z.infer<typeof createProductFormSchema>;
@@ -33,11 +36,11 @@ const defaultValues: CreateProductFormValues = {
   description: "",
   price: "0",
   availableForSale: "false",
-  xs: "false",
-  sm: "false",
-  md: "false",
-  lg: "false",
-  xl: "false",
+  xs: "0",
+  sm: "0",
+  md: "0",
+  lg: "0",
+  xl: "0",
   mainImage: null,
   images: null,
 };
@@ -68,6 +71,7 @@ export function HookFormProvider({
   collections: Collection[];
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const [existingCollections, setExistingCollections] =
     React.useState<Collection[]>(collections);
 
@@ -76,8 +80,63 @@ export function HookFormProvider({
     defaultValues,
   });
 
+  // REVIEW:
+  const computeSHA256 = async (file: File) => {
+    const buffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer); // REVIEW:
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join(""); // REVIEW:
+    return hashHex;
+  };
+
   const onSubmit = async (formValues: CreateProductFormValues) => {
-    console.log(formValues);
+    try {
+      const productTitle = formValues.title;
+
+      // NOTE: first element is main image
+      // TODO: refactor logic?
+      const fileImages = [...formValues.mainImage!, ...formValues.images!];
+      const signedUrlResults = fileImages.map(async (file) => {
+        const signedUrl = await getSignedURL({
+          fileSize: file.size,
+          fileType: file.type,
+          checksum: await computeSHA256(file),
+          productTitle,
+        });
+        return { signedUrl, file };
+      });
+
+      const signedUrlWithFileArr = await Promise.all(signedUrlResults);
+
+      signedUrlWithFileArr.forEach((signedUrlWithFile) => {
+        if (signedUrlWithFile.signedUrl.failure !== undefined) {
+          throw new Error("failed to get signed url");
+        }
+      });
+
+      signedUrlWithFileArr.forEach(async (signedUrlWithFile) => {
+        await fetch(signedUrlWithFile.signedUrl.success!.url, {
+          method: "PUT",
+          body: signedUrlWithFile.file,
+          headers: {
+            "Content-Type": signedUrlWithFile.file.type,
+          },
+        });
+      });
+
+      const { mainImage, images, ...createProductValue } = formValues;
+      const imagesUrl = signedUrlWithFileArr.map((signedUrlWithFile) => {
+        return signedUrlWithFile.signedUrl.success!.url;
+      });
+      await createProduct({ ...createProductValue, imagesUrl });
+
+      toast.success("created product");
+      router.replace("/admin/products");
+    } catch (error) {
+      toast.error("failed to create product");
+    }
   };
 
   return (

@@ -1,4 +1,4 @@
-import { getAllCollections } from "./actions";
+import { getAllCollections } from "../../actions";
 import { HookFormProvider } from "./provider/form-provider";
 
 export default async function AdminNewProductLayout({

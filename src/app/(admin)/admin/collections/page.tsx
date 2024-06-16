@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import { getAllCollections } from "../products/new/actions";
+import { getAllCollections } from "../actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function CollectionsPage() {
