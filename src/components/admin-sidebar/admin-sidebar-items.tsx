@@ -35,7 +35,8 @@ function SidebarMenuItem({
   return (
     <li
       className={cn(
-        isActive && "bg-neutral-800 text-neutral-300",
+        isActive &&
+          "bg-neutral-100 text-black dark:bg-neutral-800 dark:text-neutral-300",
         "rounded-md p-2",
       )}
     >
@@ -48,13 +49,19 @@ function SidebarMenuItem({
 }
 
 export function AdminSidebarItems() {
+  const pathname = usePathname();
+  const pathArr = pathname.split("/");
+  const activePath = pathArr[2];
+
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-neutral-50 dark:bg-neutral-900">
       <div className="flex items-center px-6 py-8">
-        <h3 className="text-2xl font-semibold text-neutral-300">DASHBOARD</h3>
+        <h3 className="text-2xl font-semibold uppercase text-black dark:text-neutral-300">
+          {activePath}
+        </h3>
       </div>
 
-      <ul className="flex flex-1 flex-col space-y-4 overflow-hidden px-4 text-neutral-400">
+      <ul className="flex flex-1 flex-col space-y-4 overflow-hidden px-4 text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-neutral-300">
         {sidebarMenus.map((item, idx) => (
           <SidebarMenuItem
             key={idx}

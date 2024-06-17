@@ -9,8 +9,9 @@ import Search, { SearchSkeleton } from "./search";
 import { UserInfo } from "./user-info";
 import { Cart } from "../cart";
 import { ModeToggle } from "../theme-toggle";
+import { Button } from "../ui/button";
 
-const menus = ["all", "shirt", "pants", "shoes"];
+const menus = ["all", "shirt", "pants"];
 
 export async function Navbar() {
   const session = await auth();
@@ -25,15 +26,17 @@ export async function Navbar() {
 
       <div className="flex w-full items-center">
         <div className="flex w-full md:w-1/3">
-          <Link
-            href="/"
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+          {/* TODO: render button differently based on media query */}
+          {/* TODO: implement use-mediaquery hook */}
+          <Button
+            variant={"outline"}
+            className="mx-auto md:ml-0 md:mr-4 lg:ml-0 lg:mr-6"
           >
-            <HomeLogoIcon className="h-4 w-4" />
-            <span className="ml-2 flex-none justify-center text-sm font-medium md:w-auto lg:mr-6">
-              HOME
-            </span>
-          </Link>
+            <Link href="/">
+              <HomeLogoIcon className="h-4 w-4" />
+            </Link>
+          </Button>
+
           <ul className="hidden gap-6 text-sm md:flex md:items-center">
             {menus.map((item, idx) => (
               <li key={idx}>

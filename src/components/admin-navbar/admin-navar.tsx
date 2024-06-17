@@ -22,7 +22,7 @@ export async function AdminNavbar() {
         </Link>
       </div>
 
-      <div className="flex justify-end md:w-1/3">
+      <div className="flex justify-end space-x-1 md:w-1/3">
         {session ? (
           <>
             <UserInfo isAdmin={session.admin} />

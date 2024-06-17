@@ -41,7 +41,6 @@ export default async function AdminLayout({
           {children}
         </div>
       </AdminSidebarProvider>
-      <Footer />
     </div>
   );
 }
