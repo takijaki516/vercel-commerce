@@ -17,6 +17,7 @@ export function Price({
         currencyDisplay: "narrowSymbol",
       }).format(amount)}`}
       {/* REVIEW: */}
+
       <span
         className={cn("ml-1 inline", currencyCodeClassName)}
       >{`${currencyCodeClassName}`}</span>

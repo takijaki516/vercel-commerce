@@ -29,33 +29,45 @@ export function Gallery({
   previousSearchParams.set("image", previousImageIndex.toString());
   const previousUrl = createUrl(pathname, previousSearchParams);
 
-  const buttonClassName = "h-full px-6 transition-all ease-in-out";
+  const buttonClassName =
+    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
 
   return (
     <>
-      <div>
+      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
           <Image
             className="h-full w-full object-contain"
-            fill
-            alt={images[imageIndex].altText as string}
             src={images[imageIndex].src}
+            alt={images[imageIndex].altText as string}
+            fill
+            priority
+            sizes="(min-width: 1024px) 66vw, 100vw"
           />
         )}
 
+        {/* NOTE: this is button */}
         {images.length > 1 ? (
-          <div>
-            <div>
+          <div className="absolute bottom-[15%] flex w-full justify-center">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <Link
+                aria-label="Previous product image"
                 href={previousUrl}
                 className={buttonClassName}
                 scroll={false} // REVIEW:
               >
-                <ArrowLeftIcon />
+                <ArrowLeftIcon className="h-5 w-5" />
               </Link>
+
               <div className="mx-1 h-6 w-px bg-neutral-500"></div>
-              <Link href={nextUrl} className={buttonClassName} scroll={false}>
-                <ArrowRightIcon />
+
+              <Link
+                href={nextUrl}
+                className={buttonClassName}
+                scroll={false}
+                aria-label="Next product image"
+              >
+                <ArrowRightIcon className="h-5 w-5" />
               </Link>
             </div>
           </div>
@@ -63,7 +75,7 @@ export function Gallery({
       </div>
 
       {images.length > 1 ? (
-        <ul>
+        <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
           {images.map((image, idx) => {
             const isActive = idx === imageIndex;
             const imageSearchParams = new URLSearchParams(

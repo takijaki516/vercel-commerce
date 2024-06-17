@@ -53,9 +53,9 @@ export async function createProduct(formValues: CreateProductParams) {
           { size: "xl", count: +formValues.xl },
         ],
       },
-      collections: {
+      collection: {
         connect: {
-          title: formValues.collectionTitle,
+          id: formValues.collectionId,
         },
       },
     },

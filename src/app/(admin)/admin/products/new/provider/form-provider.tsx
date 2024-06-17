@@ -14,7 +14,7 @@ import { createProduct, getSignedURL } from "../actions";
 export const variantsOptions = ["xs", "sm", "md", "lg", "xl"] as const;
 
 const createProductFormSchema = z.object({
-  collectionTitle: z.string(),
+  collectionId: z.string(),
   title: z.string(),
   description: z.string(),
   price: z.string(),
@@ -31,7 +31,7 @@ const createProductFormSchema = z.object({
 export type CreateProductFormValues = z.infer<typeof createProductFormSchema>;
 
 const defaultValues: CreateProductFormValues = {
-  collectionTitle: "",
+  collectionId: "",
   title: "",
   description: "",
   price: "0",

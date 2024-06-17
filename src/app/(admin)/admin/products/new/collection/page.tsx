@@ -50,7 +50,7 @@ export default function AdminNewCollectionPage() {
     <div className="flex flex-col">
       <FormField
         control={control}
-        name="collectionTitle"
+        name="collectionId"
         render={({ field }) => {
           return (
             <FormItem>
@@ -63,7 +63,7 @@ export default function AdminNewCollectionPage() {
                 </FormControl>
                 <SelectContent>
                   {existingCollections.map((item, idx) => (
-                    <SelectItem key={idx} value={item.title}>
+                    <SelectItem key={idx} value={item.id}>
                       {item.title}
                     </SelectItem>
                   ))}

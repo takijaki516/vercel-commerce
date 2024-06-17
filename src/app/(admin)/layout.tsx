@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AdminNavbar } from "@/components/admin-navbar/admin-navar";
 import { AdminDesktopSidebar } from "@/components/admin-sidebar/admin-desktop-sidebar";
 import { AdminSidebarProvider } from "@/lib/hooks/use-sidebar";
+import { Footer } from "@/components/footer";
 
 export default async function AdminLayout({
   children,
@@ -40,6 +41,7 @@ export default async function AdminLayout({
           {children}
         </div>
       </AdminSidebarProvider>
+      <Footer />
     </div>
   );
 }

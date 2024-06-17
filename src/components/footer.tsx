@@ -4,6 +4,7 @@ import * as React from "react";
 import { HomeLogoIcon } from "./icons/home-logo";
 import { FooterMenu } from "./footer-menu";
 import { Menu } from "@/lib/types";
+import { ModeToggle } from "./theme-toggle";
 
 export const footerMenus: Menu[] = [
   {
@@ -64,9 +65,6 @@ export async function Footer() {
           <p>&copy; All right reserved</p>
           <h4 className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
           <p>Designed in California</p>
-          <p className="md:ml-auto">
-            <a className="text-black dark:text-white">Crafted by ME</a>
-          </p>
         </div>
       </div>
     </footer>

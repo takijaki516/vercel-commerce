@@ -8,6 +8,7 @@ import { MobileMenu } from "./mobile-nav";
 import Search, { SearchSkeleton } from "./search";
 import { UserInfo } from "./user-info";
 import { Cart } from "../cart";
+import { ModeToggle } from "../theme-toggle";
 
 const menus = ["all", "shirt", "pants", "shoes"];
 
@@ -53,18 +54,10 @@ export async function Navbar() {
           </React.Suspense>
         </div>
 
-        <div className="flex justify-end md:w-1/3">
+        <div className="flex justify-end space-x-1 md:w-1/3">
           {session ? (
             <>
               <UserInfo isAdmin={session.admin} />
-              {session.admin && (
-                <Link
-                  href="/admin/dashboard"
-                  className="ml-2 flex items-center justify-end text-neutral-300 underline-offset-4 hover:text-neutral-200 hover:underline"
-                >
-                  <span>ADMIN</span>
-                </Link>
-              )}
             </>
           ) : (
             <Link
@@ -74,7 +67,7 @@ export async function Navbar() {
               <span>Login</span>
             </Link>
           )}
-
+          <ModeToggle />
           <React.Suspense fallback={<OpenCart />}>
             <Cart />
           </React.Suspense>
