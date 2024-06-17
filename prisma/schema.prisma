@@ -100,7 +100,9 @@ model Product {
   product_images ProductImage[]
 
   // TODO: change to explicit relation
-  collections   Collection[]
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
   size_variants ProductVariant[]
 
   // REVIEW:
