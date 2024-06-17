@@ -1,0 +1,19 @@
+# color scheme (shadcn)
+
+## light layout color
+
+- background color: bg-neutral-50
+- active background color: bg-neutral-100
+- text color: text-neutral-500
+- active text color: text-black
+- hover text color: text-black
+- border color: border-neutral-200
+
+## dark layout color
+
+- background color: bg-neutral-900
+- active background color: bg-neutral-800
+- text color: text-neutral-400
+- active text color: text-neutral-200
+- hover text color: text-neutral-200
+- border color: border-neutral-700
