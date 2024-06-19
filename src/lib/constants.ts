@@ -2,14 +2,14 @@ import { Product } from "@prisma/client";
 
 export type SortFilterItemType = {
   title: string;
-  slug: string;
+  slug: string | null;
   sortKey: keyof Product;
   reverse: boolean;
 };
 
 export const defaultSort: SortFilterItemType = {
   title: "Relevance",
-  slug: "relevance",
+  slug: null,
   sortKey: "collectionId",
   reverse: false,
 };

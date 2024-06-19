@@ -24,7 +24,6 @@ export function FilterItemDropdown({ list }: { list: SortFilterItemType[] }) {
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // REVIEW:
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setOpenSelect(false);
       }
@@ -46,7 +45,6 @@ export function FilterItemDropdown({ list }: { list: SortFilterItemType[] }) {
         <ChevronDownIcon className="h-4 w-4" />
       </div>
 
-      {/* REVIEW: */}
       {openSelect && (
         <div
           onClick={() => {

@@ -20,7 +20,7 @@ export async function getProducts({
     res = await prismaDB.product.findMany({
       where: {
         collection: {
-          title: collectionTitle === "all" ? collectionTitle : undefined,
+          title: collectionTitle === "all" ? undefined : collectionTitle,
         },
         title: query ? query : undefined,
       },
@@ -29,7 +29,7 @@ export async function getProducts({
     res = await prismaDB.product.findMany({
       where: {
         collection: {
-          title: collectionTitle === "all" ? collectionTitle : undefined,
+          title: collectionTitle === "all" ? undefined : collectionTitle,
         },
         title: query ? query : undefined,
       },

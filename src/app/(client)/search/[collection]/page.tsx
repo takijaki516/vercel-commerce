@@ -1,5 +1,4 @@
 import { getProducts } from "../actions";
-
 import { Grid } from "@/components/grid";
 import ProductGridItems from "@/components/product-grid-items";
 import { defaultSort, sorting } from "@/lib/constants";

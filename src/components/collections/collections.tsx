@@ -1,7 +1,6 @@
 import * as React from "react";
 import { prismaDB } from "@/lib/prisma-db";
 
-import { cn } from "@/lib/utils";
 import { CollectionItemDropdown } from "./dropdown";
 import { CollectionItemList } from "./item";
 
