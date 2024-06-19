@@ -10,10 +10,24 @@ import { UserInfo } from "./user-info";
 import { Cart } from "../cart";
 import { ModeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
-
-const menus = ["all", "shirt", "pants"];
+import { prismaDB } from "@/lib/prisma-db";
 
 export async function Navbar() {
+  const menus = ["all"];
+
+  const mostProductCollections = await prismaDB.collection.findMany({
+    orderBy: {
+      products: {
+        _count: "desc",
+      },
+    },
+    take: 2,
+  });
+
+  mostProductCollections.forEach((collection) => {
+    menus.push(collection.title);
+  });
+
   const session = await auth();
 
   return (

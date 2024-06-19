@@ -7,10 +7,12 @@ export async function getProducts({
   query,
   reverse,
   sortKey,
+  collectionTitle,
 }: {
   query: string;
   sortKey: keyof Product;
   reverse?: boolean;
+  collectionTitle?: string;
 }) {
   let res;
 
@@ -18,16 +20,18 @@ export async function getProducts({
     res = await prismaDB.product.findMany({
       where: {
         collection: {
-          title: query === "all" ? undefined : query, // REVIEW:
+          title: collectionTitle === "all" ? collectionTitle : undefined,
         },
+        title: query ? query : undefined,
       },
     });
   } else {
     res = await prismaDB.product.findMany({
       where: {
         collection: {
-          title: query === "all" ? undefined : query, // REVIEW:
+          title: collectionTitle === "all" ? collectionTitle : undefined,
         },
+        title: query ? query : undefined,
       },
       orderBy: {
         [sortKey]: reverse ? "desc" : "asc",
