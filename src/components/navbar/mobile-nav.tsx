@@ -1,15 +1,26 @@
 "use client";
 
 import * as React from "react";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
+
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
 
 import { Button } from "../ui/button";
 import Search, { SearchSkeleton } from "./search";
 
 export function MobileMenu({ menus }: { menus: string[] }) {
+  console.log("🚀 ~ file: mobile-nav.tsx:23 ~ MobileMenu ~ menus:", menus);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -33,23 +44,26 @@ export function MobileMenu({ menus }: { menus: string[] }) {
           <HamburgerMenuIcon className="h-4 w-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full">
-        <SheetClose asChild>
-          <Button asChild>
+
+      <SheetContent side={"left"} className="flex flex-col">
+        {/* TODO: fix css */}
+        <SheetClose>
+          <Button>
             <Cross1Icon />
           </Button>
         </SheetClose>
 
-        <div>
-          <React.Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </React.Suspense>
-        </div>
+        <React.Suspense fallback={<SearchSkeleton />}>
+          <Search />
+        </React.Suspense>
 
-        <ul>
+        <ul className="flex w-full flex-col">
           {menus.map((item, idx) => (
-            <li key={idx}>
-              <Link href={item} onClick={() => setIsOpen(false)}>
+            <li
+              key={idx}
+              className="py-2 text-xl text-black hover:text-neutral-500 dark:text-white dark:hover:text-neutral-500"
+            >
+              <Link href={`/search/${item}`} onClick={() => setIsOpen(false)}>
                 {item}
               </Link>
             </li>
