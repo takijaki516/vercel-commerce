@@ -41,7 +41,7 @@ export async function Navbar() {
             {menus.map((item, idx) => (
               <li key={idx}>
                 <Link
-                  href={item}
+                  href={`/search/${item}`}
                   className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
                 >
                   {item}

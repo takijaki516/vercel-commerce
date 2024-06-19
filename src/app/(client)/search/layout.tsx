@@ -1,6 +1,6 @@
+import { Collections } from "@/components/collections/collections";
+import { FilterList } from "@/components/filterlist/filterlist";
 import { Footer } from "@/components/footer";
-import { Collections } from "@/components/search/collections";
-import FilterList from "@/components/search/filter";
 import { sorting } from "@/lib/constants";
 
 export default function SearchLayout({
@@ -10,18 +10,19 @@ export default function SearchLayout({
 }) {
   return (
     <>
-      <div className="mx-auto flex max-w-screen-2xl flex-col">
-        <div>
+      <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 dark:text-white md:flex-row">
+        <div className="order-first w-full flex-none md:max-w-[125px]">
           <Collections />
         </div>
 
-        <div>{children}</div>
+        <div className="order-last min-h-screen w-full md:order-none">
+          {children}
+        </div>
 
-        <div>
-          <FilterList list={sorting} title="sort by" />
+        <div className="order-none flex-none md:order-last md:w-[125px]">
+          <FilterList list={sorting} />
         </div>
       </div>
-
       <Footer />
     </>
   );

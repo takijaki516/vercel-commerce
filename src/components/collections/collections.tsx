@@ -6,20 +6,26 @@ import { CollectionItemDropdown } from "./dropdown";
 import { CollectionItemList } from "./item";
 
 async function CollectionList() {
-  const collections = await prismaDB.collection.findMany({});
+  const collectionsList = [{ title: "all" }];
+  const dbCollections = await prismaDB.collection.findMany({});
+  collectionsList.push(...dbCollections);
 
   return (
     <>
       <nav>
-        <h3 className="hidden text-xs">Collections</h3>
-        <ul>
+        <h3 className="hidden text-xs text-neutral-500 dark:text-neutral-400 md:block">
+          Collections
+        </h3>
+
+        <ul className="hidden md:block">
           <React.Suspense fallback={null}>
-            <CollectionItemList list={collections} />
+            <CollectionItemList list={collectionsList} />
           </React.Suspense>
         </ul>
-        <ul>
+
+        <ul className="md:hidden">
           <React.Suspense fallback={null}>
-            <CollectionItemDropdown list={collections} />
+            <CollectionItemDropdown list={collectionsList} />
           </React.Suspense>
         </ul>
       </nav>

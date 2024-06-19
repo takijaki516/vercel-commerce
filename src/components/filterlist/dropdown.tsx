@@ -4,11 +4,10 @@ import * as React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
-import type { FilterItemProps } from "./filter-list";
 import { SortFilterItem } from "./item";
 import { SortFilterItemType } from "@/lib/constants";
 
-export function FilterItemDropdown({ item }: { item: FilterItemProps }) {
+export function FilterItemDropdown({ list }: { list: SortFilterItemType[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [active, setActive] = React.useState("");
@@ -16,12 +15,12 @@ export function FilterItemDropdown({ item }: { item: FilterItemProps }) {
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    item.list.forEach((listItem: SortFilterItemType) => {
-      if ("slug" in listItem && searchParams.get("sort") === listItem.slug) {
+    list.forEach((listItem: SortFilterItemType) => {
+      if (searchParams.get("sort") === listItem.slug) {
         setActive(listItem.title);
       }
     });
-  }, [pathname, item.list, searchParams]);
+  }, [pathname, list, searchParams]);
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,7 +54,7 @@ export function FilterItemDropdown({ item }: { item: FilterItemProps }) {
           }}
           className="absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black"
         >
-          {item.list.map((item: SortFilterItemType, i) => (
+          {list.map((item: SortFilterItemType, i) => (
             <SortFilterItem key={i} item={item} />
           ))}
         </div>

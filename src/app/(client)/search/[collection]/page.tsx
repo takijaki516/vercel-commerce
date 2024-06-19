@@ -1,51 +1,44 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { getProducts } from "../actions";
 
 import { Grid } from "@/components/grid";
-import { defaultSort, sorting } from "@/lib/constants";
-import { getCollection, getCollectionProducts } from "@/app/(client)/actions";
 import ProductGridItems from "@/components/product-grid-items";
+import { defaultSort, sorting } from "@/lib/constants";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { collection: string };
-}): Promise<Metadata> {
-  const collection = await getCollection(params.collection);
+export const metadata = {
+  title: "search",
+  description: "search for products",
+};
 
-  if (!collection) return notFound();
-
-  return {
-    title: collection.title,
-    description: collection.description,
-  };
-}
-
-export default async function CategoryPage({
-  params,
+export default async function SearchPage({
   searchParams,
 }: {
-  params: { collection: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: { [key: string]: string | string[] | undefined }; // REVIEW:
 }) {
-  const { sort } = searchParams as { [key: string]: string };
+  const { sort, q: searchValue } = searchParams as { [key: string]: string };
   const { sortKey, reverse } =
-    sorting.find((item) => item.slug === sort) || defaultSort;
-  const collectionWithProducts = await getCollectionProducts({
-    collectTitle: params.collection,
-    sortKey,
-    reverse,
-  });
+    sorting.find((item) => item.slug === sort) ?? defaultSort;
+
+  const products = await getProducts({ sortKey, reverse, query: searchValue });
+  console.log("🚀 ~ file: page.tsx:22 ~ products:", products);
+  const resultsText = products.length > 1 ? "results" : "result";
 
   return (
-    <section>
-      {collectionWithProducts?.products.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
-      ) : (
+    <>
+      {/* TODO: add search function */}
+      {searchValue ? (
+        <p className="mb-4">
+          {products.length === 0
+            ? "There are no products"
+            : `Showing ${products.length} ${resultsText} for `}
+          <span className="font-bold">&quot;{searchValue}&quot;</span>
+        </p>
+      ) : null}
+
+      {products.length > 0 ? (
         <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={collectionWithProducts?.products} />
+          <ProductGridItems products={products} />
         </Grid>
-      )}
-    </section>
+      ) : null}
+    </>
   );
 }

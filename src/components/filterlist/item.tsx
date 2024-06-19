@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Collection } from "@prisma/client";
 
-import type { FilterItemProps } from "./filter-list";
 import { cn, createUrl } from "@/lib/utils";
 import { SortFilterItemType } from "@/lib/constants";
 

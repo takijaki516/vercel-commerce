@@ -9,6 +9,11 @@
 - hover text color: text-black
 - border color: border-neutral-200
 
+### light card
+
+- card background: bg-white
+- card text: 
+
 ## dark layout color
 
 - background color: bg-neutral-900
@@ -17,3 +22,8 @@
 - active text color: text-neutral-200
 - hover text color: text-neutral-200
 - border color: border-neutral-700
+
+### dark card
+
+- card background: bg-black
+- card text: 

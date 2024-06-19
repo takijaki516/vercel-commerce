@@ -1,42 +1,43 @@
-export type SortFilterItem = {
+import { Product } from "@prisma/client";
+
+export type SortFilterItemType = {
   title: string;
-  slug: string | null;
-  sortKey: "RELEVANCE" | "BEST_SELLING" | "CREATED_AT" | "PRICE";
+  slug: string;
+  sortKey: keyof Product;
   reverse: boolean;
 };
 
-export const defaultSort: SortFilterItem = {
+export const defaultSort: SortFilterItemType = {
   title: "Relevance",
-  slug: null,
-  sortKey: "RELEVANCE",
+  slug: "relevance",
+  sortKey: "collectionId",
   reverse: false,
 };
 
-export const sorting: SortFilterItem[] = [
+export const sorting: SortFilterItemType[] = [
   defaultSort,
   {
-    title: "Trending",
-    slug: "trending-desc",
-    sortKey: "BEST_SELLING",
+    title: "Most Sold",
+    slug: "most-sold",
+    sortKey: "soldCount",
     reverse: false,
-  }, // asc
+  },
   {
     title: "Latest arrivals",
     slug: "latest-desc",
-    sortKey: "CREATED_AT",
+    sortKey: "createdAt",
     reverse: true,
   },
-
   {
     title: "Price: Low to high",
     slug: "price-asc",
-    sortKey: "PRICE",
+    sortKey: "price",
     reverse: false,
   }, // asc
   {
     title: "Price: High to low",
     slug: "price-desc",
-    sortKey: "PRICE",
+    sortKey: "price",
     reverse: true,
   },
 ];
@@ -49,4 +50,10 @@ export const TAGS = {
 
 export const HIDDEN_PRODUCT_TAG = "";
 export const DEFAULT_OPTION = "";
-export const SHOPIFY_GRAPHQL_API_ENDPOINT = "/api/2023-01/graphql.json";
+
+export const sortByOptions = [
+  { title: "Relevance" },
+  { title: "Latest Product" },
+  { title: "Price: Low to High" },
+  { title: "Price: High to Low" },
+];
