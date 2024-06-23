@@ -1,28 +1,14 @@
 "use client";
 
 import * as React from "react";
-
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
-
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import Search, { SearchSkeleton } from "./search";
 
 export function MobileMenu({ menus }: { menus: string[] }) {
-  console.log("🚀 ~ file: mobile-nav.tsx:23 ~ MobileMenu ~ menus:", menus);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = React.useState(false);
 
   // REVIEW:

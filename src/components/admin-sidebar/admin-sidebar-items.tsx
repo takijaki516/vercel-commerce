@@ -35,6 +35,7 @@ function SidebarMenuItem({
   return (
     <li
       className={cn(
+        "transition-colors duration-200 ease-in hover:text-black dark:hover:text-neutral-300",
         isActive &&
           "bg-neutral-100 text-black dark:bg-neutral-800 dark:text-neutral-300",
         "rounded-md p-2",
@@ -61,7 +62,7 @@ export function AdminSidebarItems() {
         </h3>
       </div>
 
-      <ul className="flex flex-1 flex-col space-y-4 overflow-hidden px-4 text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-neutral-300">
+      <ul className="flex flex-1 flex-col space-y-4 overflow-hidden px-4 text-neutral-500 dark:text-neutral-400">
         {sidebarMenus.map((item, idx) => (
           <SidebarMenuItem
             key={idx}

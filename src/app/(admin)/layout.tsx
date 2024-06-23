@@ -1,11 +1,9 @@
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
 import Link from "next/link";
 
+import { auth } from "@/auth";
 import { AdminNavbar } from "@/components/admin-navbar/admin-navar";
 import { AdminDesktopSidebar } from "@/components/admin-sidebar/admin-desktop-sidebar";
-import { AdminSidebarProvider } from "@/lib/hooks/use-sidebar";
-import { Footer } from "@/components/footer";
 
 export default async function AdminLayout({
   children,
@@ -34,13 +32,11 @@ export default async function AdminLayout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AdminSidebarProvider>
-        <AdminNavbar />
-        <div className="relative flex h-[calc(100vh_-_theme(spacing.16))] overflow-hidden">
-          <AdminDesktopSidebar />
-          {children}
-        </div>
-      </AdminSidebarProvider>
+      <AdminNavbar />
+      <div className="relative flex h-[calc(100vh_-_theme(spacing.16))] overflow-hidden">
+        <AdminDesktopSidebar />
+        {children}
+      </div>
     </div>
   );
 }

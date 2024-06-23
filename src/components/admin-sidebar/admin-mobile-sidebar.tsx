@@ -12,7 +12,7 @@ export function AdminMobileSidebar() {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" className="flex p-2 lg:hidden">
-          <ColumnsIcon className="size-6 text-pink-400" />
+          <ColumnsIcon className="size-6" />
           <span className="sr-only">Toggle Sidebar</span>
         </Button>
       </SheetTrigger>
