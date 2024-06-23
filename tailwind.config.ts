@@ -84,6 +84,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("@tailwindcss/container-queries"),
     // REVIEW:
     plugin(function ({ addUtilities }) {
       const newUtilities = {

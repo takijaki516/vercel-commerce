@@ -11,16 +11,12 @@ export function Price({
 } & React.ComponentProps<"p">) {
   return (
     <p suppressHydrationWarning className={className}>
+      {/* REVIEW: */}
       {`${new Intl.NumberFormat(undefined, {
         style: "currency",
         currency: "KRW",
         currencyDisplay: "narrowSymbol",
       }).format(amount)}`}
-      {/* REVIEW: */}
-
-      <span
-        className={cn("ml-1 inline", currencyCodeClassName)}
-      >{`${currencyCodeClassName}`}</span>
     </p>
   );
 }

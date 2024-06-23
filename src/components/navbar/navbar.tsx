@@ -30,7 +30,6 @@ export async function Navbar() {
     menus.push(collection.title);
   });
 
-
   // TODO: come up with better css
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -80,7 +79,7 @@ export async function Navbar() {
         ) : (
           <Link
             href="/login"
-            className="flex items-center text-neutral-300 underline-offset-4 hover:text-neutral-200 hover:underline"
+            className="mr-1 flex items-center text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-neutral-300"
           >
             <span>Login</span>
           </Link>

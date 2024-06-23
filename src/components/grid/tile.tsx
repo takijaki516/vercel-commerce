@@ -4,7 +4,7 @@ import { ProductLabel } from "../product-label";
 import { cn } from "@/lib/utils";
 
 export function GridTileImage({
-  isInteractive,
+  isInteractive = true,
   active,
   label,
   alt,
@@ -22,19 +22,18 @@ export function GridTileImage({
   return (
     <div
       className={cn(
-        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 hover:ring-purple-600 dark:bg-black",
+        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black dark:hover:border-blue-600",
         {
           relative: label,
-          "border-2 border-blue-600 hover:ring-purple-600": active,
-          "border-neutral-200 hover:ring-purple-600 dark:border-neutral-800":
-            !active,
+          "border-2 border-blue-600": active, // REVIEW: what is active?
+          "border-neutral-200 dark:border-neutral-800": !active,
         },
       )}
     >
       {src ? (
         <Image
           className={cn(
-            "relative h-full w-full object-contain p-2 hover:border-blue-600",
+            "relative h-full w-full object-contain dark:hover:border-blue-600",
             {
               "transition duration-300 ease-in-out group-hover:scale-105":
                 isInteractive,

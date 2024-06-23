@@ -19,8 +19,8 @@
 - background color: bg-neutral-900
 - active background color: bg-neutral-800
 - text color: text-neutral-400
-- active text color: text-neutral-200
-- hover text color: text-neutral-200
+- active text color: text-neutral-300
+- hover text color: text-neutral-300
 - border color: border-neutral-700
 
 ### dark card
