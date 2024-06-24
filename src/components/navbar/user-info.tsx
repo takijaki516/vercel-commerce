@@ -29,7 +29,7 @@ export function UserInfo({ isAdmin }: UserInfoProps) {
         {isAdmin && (
           <>
             <DropdownMenuItem asChild>
-              <Button variant={"ghost"}>
+              <Button variant={"ghost"} className="w-full">
                 <Link href="/admin/dashboard">
                   <div>Admin Page</div>
                 </Link>

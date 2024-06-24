@@ -11,10 +11,10 @@ export default async function ProductsPage() {
   const products = await prismaDB.product.findMany({});
 
   return (
-    <div className="w-full px-16 text-neutral-300">
+    <div className="w-full px-16">
       <Link
         href="/admin/products/new/collection"
-        className="flex items-center underline-offset-4 hover:underline"
+        className="flex items-center text-black dark:text-white"
       >
         <PlusIcon className="mr-2 h-6 w-6" />
         <span>add new product</span>

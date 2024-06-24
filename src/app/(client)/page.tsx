@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <>
       <ThreeItemGrid products={homePageProducts.slice(0, 3)} />
-      <Carousel products={homePageProducts} />
+      <Carousel products={homePageProducts.slice(0, 10)} />
       <Footer />
     </>
   );
