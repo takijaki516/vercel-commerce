@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { prismaDB } from "@/lib/prisma-db";
 
+import { prismaDB } from "@/lib/prisma-db";
 import { Footer } from "@/components/footer";
 import { Gallery } from "@/components/product/gallery";
 import { ProductDescription } from "@/components/product/product-description";
 import { GridTileImage } from "@/components/grid/tile";
 
+// TODO:
 export async function generateMetadata({
   params: { id },
 }: {
@@ -31,7 +31,6 @@ export async function generateMetadata({
   return {
     title: product.title,
     description: product.description,
-    // TODO: openGraph를 위한 이미지를 추가
   };
 }
 
@@ -47,13 +46,14 @@ export default async function ProductPage({
     include: {
       product_images: true,
       collection: true,
+      size_variants:true,
     },
   });
+  
 
   if (!product) return notFound();
 
   // TODO: add jsonLD for SEO
-
   const productImages = [{ src: product.mainImage, altText: "main image" }];
   product.product_images.forEach((image, idx) => {
     productImages.push({ src: image.url, altText: `alt image ${idx + 1}` });
@@ -62,7 +62,7 @@ export default async function ProductPage({
   return (
     <>
       <div className="mx-auto max-w-screen-2xl px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
+        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-700 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Suspense
               fallback={
@@ -122,7 +122,7 @@ async function RelatedProducts({
     <div className="py-8">
       <h2 className="mb-4 text-xl font-bold">Related Products</h2>
 
-      <ul className="no-scrollbar flex w-full gap-4 overflow-x-auto pt-1">
+      <ul className="flex w-full gap-4 overflow-x-auto pt-1 no-scrollbar">
         {relatedProducts.products.map((product) => (
           <li
             key={product.id}

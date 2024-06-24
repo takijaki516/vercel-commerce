@@ -39,17 +39,17 @@ export function Gallery({
           <Image
             className="h-full w-full object-contain"
             src={images[imageIndex].src}
-            alt={images[imageIndex].altText as string}
+            alt={images[imageIndex].altText}
             fill
             priority
             sizes="(min-width: 1024px) 66vw, 100vw"
           />
         )}
 
-        {/* NOTE: this is button */}
+        {/* NOTE: this is a button */}
         {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+          <div className="absolute bottom-[10%] flex w-full justify-center">
+            <div className="mx-auto flex h-11 items-center rounded-full border bg-neutral-50/80 text-neutral-500 backdrop-blur dark:bg-neutral-900/80 dark:text-neutral-400">
               <Link
                 aria-label="Previous product image"
                 href={previousUrl}
@@ -59,13 +59,13 @@ export function Gallery({
                 <ArrowLeftIcon className="h-5 w-5" />
               </Link>
 
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+              <div className="mx-1 h-6 w-px bg-neutral-500 dark:bg-neutral-400" />
 
               <Link
+                aria-label="Next product image"
                 href={nextUrl}
                 className={buttonClassName}
                 scroll={false}
-                aria-label="Next product image"
               >
                 <ArrowRightIcon className="h-5 w-5" />
               </Link>
@@ -74,6 +74,7 @@ export function Gallery({
         ) : null}
       </div>
 
+      {/* NOTE: image list */}
       {images.length > 1 ? (
         <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
           {images.map((image, idx) => {

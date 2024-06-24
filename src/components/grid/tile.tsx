@@ -25,20 +25,17 @@ export function GridTileImage({
         "group/tile flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black dark:hover:border-blue-600",
         {
           relative: label,
-          "border-2 border-blue-600": active, // REVIEW: what is active?
+          "border-blue-600": active, // REVIEW: what is active?
           "border-neutral-200 dark:border-neutral-800": !active,
         },
       )}
     >
       {src ? (
         <Image
-          className={cn(
-            "relative h-full w-full object-contain dark:hover:border-blue-600",
-            {
-              "transition duration-300 ease-in-out group-hover/tile:scale-105":
-                isInteractive,
-            },
-          )}
+          className={cn("relative h-full w-full object-contain", {
+            "transition duration-300 ease-in-out group-hover/tile:scale-105":
+              isInteractive,
+          })}
           src={src}
           alt={alt}
           {...props}
