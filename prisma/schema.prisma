@@ -155,7 +155,7 @@ model Cart {
 model CartItem {
   id String @id @default(cuid())
 
-  quantity Int
+  quantity Int @default(1)
 
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
