@@ -96,11 +96,6 @@ const config = {
         },
       };
       addUtilities(newUtilities);
-
-      // REVIEW: for animation pause
-      addUtilities({
-        ".paused": { animationPlayState: "paused" },
-      });
     }),
   ],
 } satisfies Config;

@@ -23,7 +23,7 @@ export default function MarQuee({
     <div
       {...props}
       className={cn(
-        "overflow-hidden [--duration:3s] group flex [--gap:1rem] [gap:var(--gap)]",
+        "overflow-hidden [--duration:60s] group flex [--gap:1rem] [gap:var(--gap)]",
       )}
     >
       {Array(repeat)
