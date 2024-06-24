@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ShoppingCartLogoIcon } from "../icons/shopping-cart-logo";
 
+// REVIEW:
 export default function OpenCart({
   className,
   quantity,
@@ -12,7 +13,7 @@ export default function OpenCart({
     <div className="relative flex h-11 w-11 items-center justify-center rounded-md border">
       <ShoppingCartLogoIcon
         className={cn(
-          "h-4 transition-all ease-in-out hover:scale-110",
+          "h-4 transition-all ease-in-out hover:scale-110 dark:fill-white",
           className,
         )}
       />

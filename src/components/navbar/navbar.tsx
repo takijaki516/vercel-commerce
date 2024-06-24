@@ -7,10 +7,11 @@ import OpenCart from "../cart/open-cart";
 import { MobileMenu } from "./mobile-nav";
 import Search, { SearchSkeleton } from "./search";
 import { UserInfo } from "./user-info";
-import { Cart } from "../cart";
+
 import { ModeToggle } from "../theme-toggle";
 import { Button } from "../ui/button";
 import { prismaDB } from "@/lib/prisma-db";
+import { Cart } from "../cart/cart";
 
 export async function Navbar() {
   const mostProductCollections = await prismaDB.collection.findMany({
@@ -74,6 +75,10 @@ export async function Navbar() {
       <div className="flex justify-end space-x-1 md:w-1/3">
         {session ? (
           <>
+            <React.Suspense fallback={<OpenCart />}>
+              <Cart />
+            </React.Suspense>
+
             <UserInfo isAdmin={session.admin} />
           </>
         ) : (
@@ -85,9 +90,6 @@ export async function Navbar() {
           </Link>
         )}
         <ModeToggle />
-        <React.Suspense fallback={<OpenCart />}>
-          <Cart />
-        </React.Suspense>
       </div>
     </nav>
   );

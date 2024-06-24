@@ -28,7 +28,6 @@ export async function signup(
       password,
     });
 
-  // TODO:
   let user: any = await prismaDB.user.findUnique({
     where: {
       email,
@@ -52,15 +51,15 @@ export async function signup(
     );
     const hashedPassword = getStringFromBuffer(hashedPasswordBuffer);
 
-    // TODO: add error handling
-
+    // REVIEW:
     user = await prismaDB.user.create({
-      data: {  email,
+      data: {
+        email,
         salt,
         hashedPassword,
+        cart: { create: {} },
       },
     });
-      
 
     await signIn("credentials", {
       email: parsedCredentials.data.email,

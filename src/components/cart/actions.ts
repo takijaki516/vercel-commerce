@@ -1,54 +1,113 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-import { TAGS } from "@/lib/constants";
-import { createCart, getCart } from "@/lib";
+import { auth } from "@/auth";
+import { prismaDB } from "@/lib/prisma-db";
 
-export async function addItem(
+interface AddItemToCartParams {
+  productId: string | undefined;
+  selectedVariantId: string | undefined;
+}
+
+export async function addItemToCart(
   prevState: any,
-  selectedVariantId: string | undefined,
+  params: AddItemToCartParams,
 ) {
-  let cartId = cookies().get("cartId")?.value;
-  let cart;
-  // REVIEW: how to get userId?
-  let userId = "test user id";
-
-  if (cartId) {
-    cart = await getCart(cartId);
+  // TODO: add ZOD to validate
+  if (!params || !params.selectedVariantId || !params.productId) {
+    return "invalid params";
   }
 
-  if (!cartId || !cart) {
-    cart = await createCart(userId);
-    cartId = cart.id;
-    cookies().set("cartId", cartId);
-  }
+  const session = await auth();
 
-  if (!selectedVariantId) {
-    return "Missing product variant id";
+  // REVIEW:
+  if (!session || !session.user || !session.user.id) {
+    return "Not authorized";
+  }
+  const userId = session.user.id;
+
+  let cart = await prismaDB.cart.findUnique({
+    where: {
+      userId: userId,
+    },
+  });
+
+  if (!cart) {
+    cart = await prismaDB.cart.create({
+      data: {
+        userId: userId,
+      },
+    });
   }
 
   try {
-    await addToCart(cartId, []);
-    revalidateTag(TAGS.cart);
+    await prismaDB.cartItem.create({
+      data: {
+        quantity: 1,
+        cartId: cart.id,
+        productId: params.productId,
+        productVariantId: params.selectedVariantId,
+      },
+    });
+    // TODO: add revalidate
   } catch (error) {
     return "Error adding item to cart";
   }
 }
 
-export async function removeItem(prevState: any, lineId: string) {
-  const cartId = cookies().get("cartId")?.value;
-  if (!cartId) {
-    return "Missing cart Id";
-  }
+interface RemoveItemFromCartParams {
+  itemId: string;
+}
 
+export async function removeItemFromCart(
+  prevState: any,
+  params: RemoveItemFromCartParams,
+) {
   try {
-    await removeFromCart(cartId, [lineId]);
-    revalidateTag(TAGS.cart);
+    const deletedCartItem = await prismaDB.cartItem.delete({
+      where: {
+        id: params.itemId,
+      },
+    });
+    // TODO: add revalidate
   } catch (error) {
     return "error removing item from cart";
   }
 }
 
-export async function createItemQuantity() {}
+export interface UpdateItemQuantityParams {
+  itemId: string;
+  variantId: string;
+  quantity: number;
+}
+
+export async function updateItemQuantity(
+  prevState: any,
+  params: UpdateItemQuantityParams,
+) {
+  try {
+    if (params.quantity === 0) {
+      await prismaDB.cartItem.delete({
+        where: {
+          id: params.itemId,
+        },
+      });
+      // TODO: add revalidation
+      return;
+    }
+
+    await prismaDB.cartItem.update({
+      where: {
+        id: params.itemId,
+      },
+      data: {
+        quantity: params.quantity,
+      },
+    });
+
+    // TODO: add revalidate
+  } catch (error) {
+    return "error updating item quantity";
+  }
+}

@@ -18,7 +18,7 @@ export function VariantSelector({
   if (sizeVariants.length === 0) return null;
 
   return (
-    <ul>
+    <ul className="mb-10">
       <h3 className="mb-4 text-sm tracking-wide">SIZE</h3>
       <div className="flex flex-wrap gap-3">
         {sizeVariants.map((variant, idx) => {

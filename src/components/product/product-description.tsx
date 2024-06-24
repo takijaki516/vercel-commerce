@@ -24,9 +24,13 @@ export function ProductDescription({
         <VariantSelector sizeVariants={product.size_variants} />
       </React.Suspense>
 
-      {/* <React.Suspense fallback={null}>
-        <AddToCart />
-      </React.Suspense> */}
+      <React.Suspense fallback={null}>
+        <AddToCart
+          productId={product.id}
+          variants={product.size_variants}
+          availableForSale={product.availableForSale}
+        />
+      </React.Suspense>
     </>
   );
 }

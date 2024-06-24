@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from "react-dom";
 
 import { CartItem } from "@/lib/types";
 import { LoadingDots } from "../loading-dots";
-import { removeItem } from "./actions";
+import { removeItemFromCart } from "./actions";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -16,15 +16,16 @@ function SubmitButton() {
   );
 }
 
-export function DeleteItemButton({ item }: { item: CartItem }) {
-  const [message, formAction] = useFormState(removeItem, null);
-  const itemId = item.id;
-  const actionWithVariant = formAction.bind(null, itemId);
+export function DeleteItemButton({ itemId }: { itemId: string }) {
+  const [message, formAction] = useFormState(removeItemFromCart, null);
+  const actionWithVariant = formAction.bind(null, { itemId });
 
   return (
     <form action={actionWithVariant}>
       <SubmitButton />
-      <p>{message}</p>
+      <p aria-live="polite" className="sr-only" role="status">
+        {message}
+      </p>
     </form>
   );
 }
